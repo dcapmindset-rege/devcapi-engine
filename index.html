@@ -129,6 +129,11 @@
             .form-btn { padding: 20px !important; font-size: 18px !important; }
         }
     </style>
+    <!-- VERCEL COMPATIBILITY SCRIPTS -->
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -172,14 +177,19 @@
                         <input type="text" name="cac_number" placeholder="RC123456">
                     </div>
                     <button type="button" class="form-btn" onclick="nextStep()">Next →</button>
-                </div>
-                <!-- Simplified - add other steps same pattern -->
-                <div class="form-step" data-step="7">
-                    <h3>Step 7 Complete</h3>
-                    <button type="submit" class="form-btn">🚀 SUBMIT FOR SCREENING</button>
-                </div>
-            </form>
-        </div>
+                <!-- STEP 7 FORM (replace your submit button section) -->
+<div class="form-step" data-step="7">
+    <div class="form-group">
+        <label>Consent *</label>
+        <select name="consent" required>
+            <option value="">Select</option>
+            <option value="Yes">Yes - Full Verification</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    <!-- VERCEL-SAFE SUBMIT BUTTON -->
+    <button type="button" class="form-btn" onclick="submitDevCapiForm()">🚀 SCREEN DEAL NOW</button>
+</div>
 
         <!-- RESULTS SECTION -->
         <div id="results-section" class="section">
