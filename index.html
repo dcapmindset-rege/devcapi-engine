@@ -190,7 +190,54 @@
     <!-- VERCEL-SAFE SUBMIT BUTTON -->
     <button type="button" class="form-btn" onclick="submitDevCapiForm()">🚀 SCREEN DEAL NOW</button>
 </div>
+// VERCEL-SAFE FORM SUBMISSION
+function submitDevCapiForm() {
+    // VALIDATION
+    const form = document.getElementById('intakeForm');
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    
+    if (!data.company_name || !data.cac_number) {
+        alert('❌ Company Name + CAC required!');
+        return;
+    }
+    
+    // SIMULATE YOUR SCORING LOGIC
+    data.score = Math.floor(Math.random() * 30) + 70;
+    data.status = data.score >= 85 ? 'Priority' : 'Investor-Ready';
+    
+    // 🚨 YOUR CLIENT ALERT
+    const alertMsg = `🚨 CLIENT SUBMISSION!
 
+🏢 ${data.company_name}
+🆔 CAC: ${data.cac_number}
+📊 Score: ${data.score}/100
+💰 Amount: ₦${data.amount || 0}`;
+    alert(alertMsg);
+    
+    // SAVE LOCALLY (persists on Vercel)
+    let deals = JSON.parse(localStorage.getItem('devcapiDeals') || '[]');
+    data.id = Date.now();
+    deals.unshift(data);
+    localStorage.setItem('devcapiDeals', JSON.stringify(deals));
+    
+    // SHOW RESULTS
+    showResults(data);
+}
+
+// RESULTS DISPLAY
+function showResults(data) {
+    document.getElementById('resultsContent').innerHTML = `
+        <div class="result-card status-${data.status.toLowerCase().replace(' ', '-')}">
+            <h3>✅ ${data.status}</h3>
+            <p><strong>Company:</strong> ${data.company_name}</p>
+            <p><strong>Score:</strong> ${data.score}/100</p>
+            <p><strong>CAC:</strong> ${data.cac_number}</p>
+            <button class="form-btn" onclick="generatePDF()">📄 Download IRM</button>
+        </div>
+    `;
+    showSection('results');
+}
         <!-- RESULTS SECTION -->
         <div id="results-section" class="section">
             <h2>Screening Results</h2>
